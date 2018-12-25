@@ -12,8 +12,9 @@
 <script src="assets/jquery-3.2.1.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <form action="" method="post">
-    <input type="text" name="hash_card" value="" placeholder="Номер карты">
-    <input type="submit">
+    <input type="text" name="hash_card" value="" placeholder="Номер карты"><br>
+    <input type="submit" value="Зайти в Аквапарк"><br>
+    <a href="index.php">На главную</a>
 </form>
 </body>
 </html>
