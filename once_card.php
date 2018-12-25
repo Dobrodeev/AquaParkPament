@@ -63,10 +63,10 @@ if (isset($_POST['go']))
     include 'DB.php';
     do
     {
-//        $hash_card = hashFunction('a');
-        $hash_card = 'ffff';
+        $hash_card = hashFunction('a');
+//        echo ('Еще раз <br>');
     }
-    while(!$pdo->query("SELECT id_card FROM hour_cards WHERE hash_card='$hash_card'"));
+    while ($pdo->query("SELECT id_card FROM hour_cards WHERE hash_card='$hash_card'")->rowCount());
     $stmt=$pdo->query("INSERT INTO hour_cards (hash_card, time_card, status_card) VALUES ('$hash_card', '$timeCard', 'active')");
 }
 ?>
