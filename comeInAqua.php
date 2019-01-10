@@ -11,6 +11,7 @@
 <body>
 <script src="assets/jquery-3.2.1.js"></script>
 <script src="assets/js/bootstrap.js"></script>
+<!--Форма для ввода номера карты и входа в зону отдыха-->
 <form action="abonement.php" method="post">
     <input type="text" name="hash_card" value="" placeholder="Номер карты"><br>
     <input type="submit" name="go" value="Come In AquaPark"><br>
@@ -25,7 +26,4 @@
  * Date: 25.12.2018
  * Time: 11:10
  */
-// if() карта активна -> inuse
-// на выходе ввести 50 мин
-//echo 'Come in';
 ?>
