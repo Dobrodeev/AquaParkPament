@@ -17,8 +17,8 @@ if ($_POST['go'])
 //        echo 'OK';
         header('Location: ComeInAquaPark.php');
     }
-}
-else
-{
-    echo 'Enter valid number of card.';
+    else
+    {
+        echo 'Else...';
+    }
 }
