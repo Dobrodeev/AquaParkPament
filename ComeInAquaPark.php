@@ -12,18 +12,14 @@
 <script src="assets/jquery-3.2.1.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <img src="template/images/1cb9f5296c7400988b86167e065f4701.jpg" alt="in AquaPark">
-<form action="" method="post">
-    <input type="text" name="total_time" value="" placeholder="всего минут"><br>
-    <input type="submit" value="Зайти в Аквапарк"><br>
+<form action="#" method="post">
+    <label for="">Провели мвремени в зоне</label><br>
+    <input type="text" name="total_time" value="" placeholder="минут"><br>
+    <input type="submit" name="go" value="Пощитать"><br>
     <a href="index.php">На главную</a>
 </form>
 </body>
 </html>
 <?php
-/**
- * Created by PhpStorm.
- * User: Zver
- * Date: 10.01.2019
- * Time: 9:34
- */
+    echo 'Всего стоимость: '.$_POST['total_time'].' гривны';
 ?>
