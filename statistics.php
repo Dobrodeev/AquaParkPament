@@ -9,6 +9,7 @@
     <link href="assets/css/bootstrap.css" rel="stylesheet" media="screen">
 </head>
 <body>
+<h4>Статистика</h4>
 <script src="assets/jquery-3.2.1.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <a href="index.php">На главную</a>
