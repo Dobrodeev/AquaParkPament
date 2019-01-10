@@ -21,4 +21,3 @@ function hashFunction($prefix, $length = 6)
     }
     return $string;
 }
-//echo hashFunction('a');

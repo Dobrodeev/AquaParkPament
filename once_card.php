@@ -64,7 +64,6 @@ if (isset($_POST['go']))
     do
     {
         $hash_card = hashFunction('a');
-//        echo ('Еще раз <br>');
     }
     while ($pdo->query("SELECT id_card FROM hour_cards WHERE hash_card='$hash_card'")->rowCount());
     $stmt=$pdo->query("INSERT INTO hour_cards (hash_card, time_card, status_card) VALUES ('$hash_card', '$timeCard', 'active')");
