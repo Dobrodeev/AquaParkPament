@@ -20,28 +20,28 @@
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="card" id="gridRadios1" value="60" checked>
                     <label class="form-check-label" for="gridRadios1">
-                        1 час - 85 uah
+                        1 час - 85 гривен
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="card" id="gridRadios2" value="120">
                     <label class="form-check-label" for="gridRadios2">
-                        2 часа - 145 uah
+                        2 часа - 145 гривен
                     </label>
                 </div>
                 <div class="form-check disabled">
                     <input class="form-check-input" type="radio" name="card" id="gridRadios3" value="180">
                     <label class="form-check-label" for="gridRadios3">
-                        3 часа - 200 uah
-                    </label>
+                        3 часа - 200 гривен
+                    </label><br>
+                    <label for="">Каждая "пересиженая" минут будет стоить 1.5 гривны</label>
                 </div>
             </div>
         </div>
     </fieldset>
-
     <div class="form-group row">
         <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary" name="go">Купить</button>
+            <button type="submit" class="btn btn-primary" name="go">Купить карту</button>
         </div>
     </div>
     <a href="index.php">На главную</a>
