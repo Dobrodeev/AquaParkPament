@@ -11,6 +11,13 @@
 <body>
 <script src="assets/jquery-3.2.1.js"></script>
 <script src="assets/js/bootstrap.js"></script>
+<form method="post" action="">
+    <div class="form-group">
+        <label for="formGroupExampleInput">Клубная(предопдлаченая) карта</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+        <input type="submit" name="go" value="Купить карту">
+    </div>
+</form>
 <a href="index.php">На главную</a>
 </body>
 </html>
