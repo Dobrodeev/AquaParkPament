@@ -14,11 +14,11 @@
 <form method="post" action="">
     <div class="form-group">
         <label for="formGroupExampleInput">Клубная(предопдлаченая) карта</label>
-        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="пополнить баланс" name="clubCard" value="">
         <input type="submit" name="go" value="Купить карту">
     </div>
 </form>
-<a href="index.php">На главную</a>
+<a href="index.php">На главную</a><br>
 </body>
 </html>
 <?php
@@ -28,4 +28,6 @@
  * Date: 25.12.2018
  * Time: 11:32
  */
+//print_r($_POST['clubCard']);
+echo 'Пополнили на '.$_POST['clubCard'].' гривен <br>';
 ?>
