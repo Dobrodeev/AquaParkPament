@@ -28,6 +28,17 @@
  * Date: 25.12.2018
  * Time: 11:32
  */
-//print_r($_POST['clubCard']);
-echo 'Пополнили на '.$_POST['clubCard'].' гривен <br>';
+//echo 'Пополнили на '.$_POST['clubCard'].' гривен <br>';
+if ($_POST['go'])
+{
+    $balance = $_POST['clubCard'];
+    include 'hashFunction.php';
+    include 'DB.php';
+    do
+    {
+        $hash_card = hashFunction('b');
+    }
+    while ($pdo->query("SELECT id_card FROM club_cards WHERE hash_card='$hash_card'")->rowCount());
+    $stmt=$pdo->query("INSERT INTO club_cards (hash_card, status_card, balance) VALUES ('$hash_card', 'active', '$balance')");
+}
 ?>
