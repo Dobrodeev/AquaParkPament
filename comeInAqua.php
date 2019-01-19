@@ -41,41 +41,25 @@ if ($_POST['go'])
     {
         $tableName = 'hour_cards';
         $fieldName = 'time_card';
+//        $stmt = $pdo->query("UPDATE hour_cards SET status_card='inuse' WHERE hash_card='$hash_card'");
+//        $stmt = $pdo->query("SELECT * FROM hour_cards WHERE hash_card='$hash_card'");
     }
     else
     {
         $tableName = 'club_cards';
         $fieldName = 'balance';
+//        $stmt = $pdo->query("UPDATE club_cards SET status_card='inuse' WHERE hash_card='$hash_card'");
+//        $stmt = $pdo->query("SELECT * FROM club_cards WHERE hash_card='$hash_card'");
     }
-        $stmt = $pdo->query("SELECT * FROM '$tableName' WHERE hash_card='$hash_card'");
+    $stmt = $pdo->query("UPDATE $tableName SET status_card='inuse' WHERE hash_card='$hash_card'");
+    $stmt = $pdo->query("SELECT * FROM $tableName WHERE hash_card='$hash_card'");
         if (!$stmt->rowCount())
         {
-//            echo 'Карта не найдена';
             exit('No card');
         }
         $name = $stmt->fetchAll();
-
-//        if ($name[0]['status_card'] == 'active')
-//        {
-//            $stmt = $pdo->query("UPDATE hour_cards SET status_card='inuse' WHERE hash_card='$hash_card'");
-//            if ($name)
-//            {
-//                header('Location: ComeInAquaPark.php');
-//            }
-//        }
-//    }
-//    elseif ($firstSymbol == 'b')
-//    {
-//        $stmt = $pdo->query("SELECT id_card, balance FROM club_cards WHERE hash_card='$hash_card'");
-//        $name = $stmt->fetchAll();
-//        if($name[0]['status_card'] == 'active')
-//        {
-//            $stmt = $pdo->query("UPDATE club_cards SET status_card='inuse'");
-//            if ($name)
-//            {
-//                header('Location: ComeInAquaPark.php');
-//            }
-//        }
-//    }
-//    echo 'Карта уже используется.';
+    echo '<pre>';
+    print_r($name);
+    echo '</pre>';
+//    header('Location: ComeInAquaPark.php');
 }
