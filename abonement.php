@@ -11,7 +11,7 @@ if ($_POST['go'])
     $hash_card = $_POST['hash_card'];
     $firstSymbol = substr($hash_card, 0, 1);
 
-    include 'DB.php';
+    require_once 'DB.php';
     if ($firstSymbol == 'a')
     {
         $stmt = $pdo->query("SELECT id_card, time_card FROM hour_cards WHERE hash_card='$hash_card'");

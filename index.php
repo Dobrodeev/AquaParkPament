@@ -15,7 +15,7 @@
 <a href="once_card.php">Купить разовую</a><br>
 <a href="clubCard.php">Управление клубными картами</a><br>
 <a href="comeInAqua.php">Вход</a><br>
-<a href="comeInAqua.php">Exit</a><br>
+<a href="ExitFrom.php">Exit</a><br>
 <!--Еще один переход и обработчик выхода-->
 <a href="statistics.php">Статистика</a><br>
 

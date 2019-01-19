@@ -15,9 +15,9 @@
 <script src="assets/jquery-3.2.1.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <!--Форма для ввода номера карты и входа в зону отдыха-->
-<form action="abonement.php" method="post">
+<form action="#" method="post">
     <input type="text" name="hash_card" value="" placeholder="Номер карты"><br>
-    <input type="submit" name="go" value="Come In AquaPark"><br>
+    <input type="submit" name="go" value="Come in Aqua"><br>
     <a href="index.php">На главную</a>
 </form>
 </body>
@@ -26,7 +26,56 @@
 /**
  * Created by PhpStorm.
  * User: dobrodeev
- * Date: 25.12.2018
+ * Date: 19.12.2018
  * Time: 11:10
  */
-?>
+if ($_POST['go'])
+{
+    $hash_card = $_POST['hash_card'];
+    $firstSymbol = substr($hash_card, 0, 1);
+    /** проверка может ли зайти, если нет то указать причину
+     *он зашел, оформить вход active -> inuse
+     */
+    require_once 'DB.php';
+    if ($firstSymbol == 'a')
+    {
+        $tableName = 'hour_cards';
+        $fieldName = 'time_card';
+    }
+    else
+    {
+        $tableName = 'club_cards';
+        $fieldName = 'balance';
+    }
+        $stmt = $pdo->query("SELECT * FROM '$tableName' WHERE hash_card='$hash_card'");
+        if (!$stmt->rowCount())
+        {
+//            echo 'Карта не найдена';
+            exit('No card');
+        }
+        $name = $stmt->fetchAll();
+
+//        if ($name[0]['status_card'] == 'active')
+//        {
+//            $stmt = $pdo->query("UPDATE hour_cards SET status_card='inuse' WHERE hash_card='$hash_card'");
+//            if ($name)
+//            {
+//                header('Location: ComeInAquaPark.php');
+//            }
+//        }
+//    }
+//    elseif ($firstSymbol == 'b')
+//    {
+//        $stmt = $pdo->query("SELECT id_card, balance FROM club_cards WHERE hash_card='$hash_card'");
+//        $name = $stmt->fetchAll();
+//        if($name[0]['status_card'] == 'active')
+//        {
+//            $stmt = $pdo->query("UPDATE club_cards SET status_card='inuse'");
+//            if ($name)
+//            {
+//                header('Location: ComeInAquaPark.php');
+//            }
+//        }
+//    }
+//    echo 'Карта уже используется.';
+}
