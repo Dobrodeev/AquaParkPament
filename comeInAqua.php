@@ -51,15 +51,38 @@ if ($_POST['go'])
 //        $stmt = $pdo->query("UPDATE club_cards SET status_card='inuse' WHERE hash_card='$hash_card'");
 //        $stmt = $pdo->query("SELECT * FROM club_cards WHERE hash_card='$hash_card'");
     }
-    $stmt = $pdo->query("UPDATE $tableName SET status_card='inuse' WHERE hash_card='$hash_card'");
+//    $stmt = $pdo->query("UPDATE $tableName SET status_card='inuse' WHERE hash_card='$hash_card'");
     $stmt = $pdo->query("SELECT * FROM $tableName WHERE hash_card='$hash_card'");
-        if (!$stmt->rowCount())
-        {
-            exit('No card');
-        }
-        $name = $stmt->fetchAll();
+//    print_r($stmt);
+    if (!$stmt->rowCount())
+    {
+        exit('No card');
+    }
+    $name = $stmt->fetchAll();
     echo '<pre>';
     print_r($name);
     echo '</pre>';
+    if ($firstSymbol == 'a' && $name[0]['time_card'] > 0)
+    {
+        echo 'Come in.<br>';
+        $temp = - $name[0]['time_card'];
+        $stmt = $pdo->query("UPDATE $tableName SET time_card='$temp' WHERE hash_card='$hash_card'");
+    }
+    elseif ($firstSymbol == 'b' && $name[0]['status_card'] == 'active')
+    {
+        if ($name[0]['balance'] > 80)
+        {
+            echo 'Come in.<br>';
+            $balanceNew = $name[0]['balance'] - 80;
+            $stmt = $pdo->query("UPDATE $tableName SET status_card='inuse', balance='$balanceNew' WHERE hash_card='$hash_card'");
+        }
+        else
+            echo 'Недостаточно средств на карте. <br>';
+    }
+    else
+        echo 'Карта уже используеться. <br>';
 //    header('Location: ComeInAquaPark.php');
+    /**
+     * сколько зашло людей, сколько денег заплачено
+     */
 }
