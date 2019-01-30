@@ -13,10 +13,14 @@
 <script src="assets/js/bootstrap.js"></script>
 <form method="post" action="">
     <div class="form-group">
-        <label for="formGroupExampleInput">Клубная(предопдлаченая) карта</label>
-        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="пополнить баланс" name="clubCard" value="">
-        <input type="submit" name="go" value="Купить карту">
+        <label for="formGroupExampleInput">Пополнение карты</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="ID карты" name="IDclubCard" value="">
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="пополнить баланс" name="BalanceclubCard" value="">
+        <input type="submit" name="run" value="Пополнить карту">
     </div>
+    <label for="formGroupExampleInput">Покупка карты</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="пополнить баланс" name="clubCard" value="">
+    <input type="submit" name="go" value="Купить карту">
 </form>
 <a href="index.php">На главную</a><br>
 </body>
@@ -28,17 +32,44 @@
  * Date: 25.12.2018
  * Time: 11:32
  */
-//echo 'Пополнили на '.$_POST['clubCard'].' гривен <br>';
+//echo '<pre>';
+//print_r($_POST);
+//echo '</pre>';
 if ($_POST['go'])
 {
-    $balance = $_POST['clubCard'];
-    include 'hashFunction.php';
-    include 'DB.php';
-    do
+    if (isset($_POST['clubCard']))
     {
-        $hash_card = hashFunction('b');
+        $balance = $_POST['clubCard'];
+        include 'hashFunction.php';
+        include 'DB.php';
+        do
+        {
+            $hash_card = hashFunction('b');
+        }
+        while ($pdo->query("SELECT id_card FROM club_cards WHERE hash_card='$hash_card'")->rowCount());
+        $stmt=$pdo->query("INSERT INTO club_cards (hash_card, status_card, balance) VALUES ('$hash_card', 'active', '$balance')");
+        echo 'Пополнили карту '.$hash_card.' на '.$balance,' гривен. <br>';
     }
-    while ($pdo->query("SELECT id_card FROM club_cards WHERE hash_card='$hash_card'")->rowCount());
-    $stmt=$pdo->query("INSERT INTO club_cards (hash_card, status_card, balance) VALUES ('$hash_card', 'active', '$balance')");
+}
+
+if ($_POST['run'])
+{
+    if (isset($_POST['IDclubCard']) && isset($_POST['BalanceclubCard']))
+    {
+        $id = $_POST['IDclubCard'];
+        $balance = $_POST['BalanceclubCard'];
+        include 'DB.php';
+        $query = "SELECT * FROM club_cards WHERE hash_card='$id'";
+        $stmt = $pdo->query($query);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($result)
+        {
+            $queryPay = "UPDATE club_cards SET balance='$balance' WHERE hash_card='$id'";
+            $result = $pdo->query($queryPay);
+            echo 'Пополнили карту '.$id.' на '.$balance,' гривен. <br>';
+        }
+        else
+            echo 'Не получили данных.';
+    }
 }
 ?>
