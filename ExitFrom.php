@@ -67,11 +67,15 @@ if ($_POST['go'])
         {
             $pay = $time - 60;
             echo 'Доплатите '.$pay.' гривен.';
-            $queryFromStatistics = "SELECT income FROM statistics";
+            $resultBalance -= $pay;
+            $queryClubCards = "UPDATE club_cards SET balance='$resultBalance', status_card='noactive' WHERE hash_card='$hash_card'";
+            $resultClubCards = $pdo->query($queryClubCards);
+            $queryFromStatistics = "SELECT income, people_now FROM statistics";
             $stat = $pdo->query($queryFromStatistics);
-            $resStat = $stat->fetchColumn();
-            $resStat += $pay;
-            $resIncome = $pdo->query("UPDATE statistics SET income='$resStat'");
+            $resStat = $stat->fetchAll();
+            $income = $resStat[0]['income'] + $pay;
+            $people = $resStat[0]['people_now'] - 1;
+            $resIncome = $pdo->query("UPDATE statistics SET income='$income', people_now='$people'");
         }
     }
 }
