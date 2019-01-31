@@ -48,6 +48,12 @@ if ($_POST['go'])
         }
         while ($pdo->query("SELECT id_card FROM club_cards WHERE hash_card='$hash_card'")->rowCount());
         $stmt=$pdo->query("INSERT INTO club_cards (hash_card, status_card, balance) VALUES ('$hash_card', 'active', '$balance')");
+        $queryIncome = "SELECT income FROM statistics";
+        $resultIncome = $pdo->query($queryIncome);
+        $res = $resultIncome->fetchColumn();
+        $res += $balance;
+        $queryStatistics = "UPDATE statistics SET income='$res'";
+        $resultStatistics = $pdo->query("UPDATE statistics SET income='$res'");
         echo 'Пополнили карту '.$hash_card.' на '.$balance,' гривен. <br>';
     }
 }
@@ -64,10 +70,17 @@ if ($_POST['run'])
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($result)
         {
+            $queryFromStatistics = "SELECT income FROM statistics";
+            $res = $pdo->query($queryFromStatistics);
+            $incomeResult = $res->fetchColumn();
+            $incomeResult += $balance;
+            $resIncome = $pdo->query("UPDATE statistics SET income='$incomeResult'");
+//            $resultStatistics = $pdo->query("UPDATE statistics SET income='$balance'");
             $balance += $result[0]['balance'];
             $queryPay = "UPDATE club_cards SET balance='$balance' WHERE hash_card='$id'";
             $result = $pdo->query($queryPay);
             echo 'Баланс на карте '.$id.' теперь '.$balance,' гривен. <br>';
+
         }
         else
             echo 'Нет такой карты.';

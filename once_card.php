@@ -66,6 +66,12 @@ if (isset($_POST['go']))
         $hash_card = hashFunction('a');
     }
     while ($pdo->query("SELECT id_card FROM hour_cards WHERE hash_card='$hash_card'")->rowCount());
-    $stmt=$pdo->query("INSERT INTO hour_cards (hash_card, time_card, status_card) VALUES ('$hash_card', '$timeCard', 'active')");
+    $stmt=$pdo->query("INSERT INTO hour_cards (hash_card, time_card) VALUES ('$hash_card', '$timeCard')");
+    $queryIncome = "SELECT income FROM statistics";
+    $resIncome = $pdo->query($queryIncome);
+    $statisticsIncome = $resIncome->fetchColumn();
+    $statisticsIncome += $timeCard;
+    $queryStatistics = "UPDATE statistics SET income='$statisticsIncome'";
+    $resultStatistics = $pdo->query($queryStatistics);
 }
 ?>
