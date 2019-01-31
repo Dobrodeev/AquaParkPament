@@ -68,7 +68,7 @@ if ($_POST['go'])
             $pay = $time - 60;
             echo 'Доплатите '.$pay.' гривен.';
             $resultBalance -= $pay;
-            $queryClubCards = "UPDATE club_cards SET balance='$resultBalance', status_card='noactive' WHERE hash_card='$hash_card'";
+            $queryClubCards = "UPDATE club_cards SET balance='$resultBalance', status_card='active' WHERE hash_card='$hash_card'";
             $resultClubCards = $pdo->query($queryClubCards);
             $queryFromStatistics = "SELECT income, people_now FROM statistics";
             $stat = $pdo->query($queryFromStatistics);
