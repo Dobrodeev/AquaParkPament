@@ -14,9 +14,10 @@
     <script src="assets/jquery-3.2.1.js"></script>
     <script src="assets/js/bootstrap.js"></script>
     <!--Форма для ввода номера карты и входа в зону отдыха-->
+    <img src="template/images/1cb9f5296c7400988b86167e065f4701.jpg" alt="in AquaPark">
     <form action="#" method="post">
         <input type="text" name="hash_card" value="" placeholder="Номер карты"><br>
-        <input type="text" name="time" value="" placeholder="превышение времени"><br>
+        <input type="text" name="time" value="" placeholder="провели всего минут"><br>
         <input type="submit" name="go" value="Exit"><br>
         <a href="index.php">На главную</a>
     </form>
@@ -32,28 +33,42 @@
 if ($_POST['go'])
 {
     $hash_card = $_POST['hash_card'];
+    $time = $_POST['time'];
     $firstSymbol = substr($hash_card, 0, 1);
     include 'DB.php';
     if ($firstSymbol == 'a')
     {
         $table = 'hour_cards';
-//        $stmt = $pdo->query("UPDATE hour_cards SET status_card='noactive'");
-        // разовая карта станет неактивной в любом случае, если пользователь пересидел
-        //свое время - пусть заплатит 1.5 гривны за минуту. Записать деньги в статистику
+        $queryTime = "SELECT time_card FROM $table WHERE hash_card='$hash_card'";
+        $stmt = $pdo->query($queryTime);
+        $resultTime = $stmt->fetchColumn();
+        if ($resultTime < $time)
+        {
+            $pay = 1.5*($time - $resultTime);
+            echo 'Доплатите '.$pay.' гривен.';
+            $queryFromStatistics = "SELECT income FROM statistics";
+            $stat = $pdo->query($queryFromStatistics);
+            $resStat = $stat->fetchColumn();
+            $resStat += $pay;
+            $resIncome = $pdo->query("UPDATE statistics SET income='$resStat'");
+        }
     }
     else
     {
         $table = 'club_cards';
-//        $stmt = $pdo->query("UPDATE club_cards SET status_card='active'");
-        // если пользователь пробыл дольше положенного, пусть запишется минус на карту
-        // в БД сделать UPDATE club_cards SET balance = X
+        $queryTime = "SELECT balance FROM $table WHERE hash_card='$hash_card'";
+        $stmt = $pdo->query($queryTime);
+        $resultBalance = $stmt->fetchColumn();
+        if ($time > 60)
+        {
+            $pay = $time - 60;
+            echo 'Доплатите '.$pay.' гривен.';
+            $queryFromStatistics = "SELECT income FROM statistics";
+            $stat = $pdo->query($queryFromStatistics);
+            $resStat = $stat->fetchColumn();
+            $resStat += $pay;
+            $resIncome = $pdo->query("UPDATE statistics SET income='$resStat'");
+        }
     }
-    $queryTime = "SELECT time_card FROM $table WHERE hash_card='$hash_card'";
-    $stmt = $pdo->query($queryTime);
-    /** @var
-     * Подсчет пересиженого времени$queryUpdate
-     */
-    $queryUpdate = "UPDATE $table SET status_card='noactive'";
-    $stmt = $pdo->query($queryUpdate);
 }
 ?>
