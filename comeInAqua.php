@@ -41,32 +41,30 @@ if ($_POST['go'])
     {
         $tableName = 'hour_cards';
         $fieldName = 'time_card';
-//        $stmt = $pdo->query("UPDATE hour_cards SET status_card='inuse' WHERE hash_card='$hash_card'");
-//        $stmt = $pdo->query("SELECT * FROM hour_cards WHERE hash_card='$hash_card'");
     }
     else
     {
         $tableName = 'club_cards';
         $fieldName = 'balance';
-//        $stmt = $pdo->query("UPDATE club_cards SET status_card='inuse' WHERE hash_card='$hash_card'");
-//        $stmt = $pdo->query("SELECT * FROM club_cards WHERE hash_card='$hash_card'");
     }
-//    $stmt = $pdo->query("UPDATE $tableName SET status_card='inuse' WHERE hash_card='$hash_card'");
     $stmt = $pdo->query("SELECT * FROM $tableName WHERE hash_card='$hash_card'");
-//    print_r($stmt);
     if (!$stmt->rowCount())
     {
         exit('No card');
     }
     $name = $stmt->fetchAll();
-    echo '<pre>';
-    print_r($name);
-    echo '</pre>';
+
     if ($firstSymbol == 'a' && $name[0]['time_card'] > 0)
     {
         echo 'Come in.<br>';
         $temp = - $name[0]['time_card'];
         $stmt = $pdo->query("UPDATE $tableName SET time_card='$temp' WHERE hash_card='$hash_card'");
+        $queryStatistics = "SELECT people_now FROM statistics";
+        $resultStatisctics = $pdo->query($queryStatistics);
+        $res = $resultStatisctics->fetchColumn();
+        $res ++;
+        $queryStat = "UPDATE statistics SET people_now='$res'";
+        $resultStat = $pdo->query($queryStat);
     }
     elseif ($firstSymbol == 'b' && $name[0]['status_card'] == 'active')
     {
@@ -75,6 +73,12 @@ if ($_POST['go'])
             echo 'Come in.<br>';
             $balanceNew = $name[0]['balance'] - 80;
             $stmt = $pdo->query("UPDATE $tableName SET status_card='inuse', balance='$balanceNew' WHERE hash_card='$hash_card'");
+            $queryStatistics = "SELECT people_now FROM statistics";
+            $resultStatisctics = $pdo->query($queryStatistics);
+            $res = $resultStatisctics->fetchColumn();
+            $res ++;
+            $queryStat = "UPDATE statistics SET people_now='$res'";
+            $resultStat = $pdo->query($queryStat);
         }
         else
             echo 'Недостаточно средств на карте. <br>';
