@@ -46,11 +46,15 @@ if ($_POST['go'])
         {
             $pay = 1.5*($time - $resultTime);
             echo 'Доплатите '.$pay.' гривен.';
-            $queryFromStatistics = "SELECT income FROM statistics";
+            $queryFromStatistics = "SELECT income, people_now FROM statistics";
             $stat = $pdo->query($queryFromStatistics);
-            $resStat = $stat->fetchColumn();
-            $resStat += $pay;
-            $resIncome = $pdo->query("UPDATE statistics SET income='$resStat'");
+            $resStat = $stat->fetchAll();
+            echo '<pre>';
+            print_r($resStat);
+            echo '</pre>';
+            $income = $resStat[0]['income'] + $pay;
+            $people = $resStat[0]['people_now'] - 1;
+            $resIncome = $pdo->query("UPDATE statistics SET income='$income', people_now='$people'");
         }
     }
     else
