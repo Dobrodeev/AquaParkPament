@@ -64,12 +64,13 @@ if ($_POST['run'])
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($result)
         {
+            $balance += $result[0]['balance'];
             $queryPay = "UPDATE club_cards SET balance='$balance' WHERE hash_card='$id'";
             $result = $pdo->query($queryPay);
-            echo 'Пополнили карту '.$id.' на '.$balance,' гривен. <br>';
+            echo 'Баланс на карте '.$id.' теперь '.$balance,' гривен. <br>';
         }
         else
-            echo 'Не получили данных.';
+            echo 'Нет такой карты.';
     }
 }
 ?>
