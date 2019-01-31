@@ -53,17 +53,6 @@ if ($_POST['go'])
         exit('No card');
     }
     $name = $stmt->fetchAll();
-    /*
-    function peopleNow()
-    {
-        $queryStatistics = "SELECT people_now FROM statistics";
-        $resultStatisctics = $pdo->query($queryStatistics);
-        $res = $resultStatisctics->fetchColumn();
-        $res ++;
-        $queryStat = "UPDATE statistics SET people_now='$res'";
-        $resultStat = $pdo->query($queryStat);
-    }
-    */
     if ($firstSymbol == 'a' && $name[0]['time_card'] > 0)
     {
         echo 'Come in.<br>';
@@ -95,8 +84,4 @@ if ($_POST['go'])
     }
     else
         echo 'Карта уже используеться. <br>';
-//    header('Location: ComeInAquaPark.php');
-    /**
-     * сколько зашло людей, сколько денег заплачено
-     */
 }
