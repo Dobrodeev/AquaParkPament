@@ -52,7 +52,6 @@ if ($_POST['go'])
         $resultIncome = $pdo->query($queryIncome);
         $res = $resultIncome->fetchColumn();
         $res += $balance;
-        $queryStatistics = "UPDATE statistics SET income='$res'";
         $resultStatistics = $pdo->query("UPDATE statistics SET income='$res'");
         echo 'Пополнили карту '.$hash_card.' на '.$balance,' гривен. <br>';
     }
@@ -75,12 +74,10 @@ if ($_POST['run'])
             $incomeResult = $res->fetchColumn();
             $incomeResult += $balance;
             $resIncome = $pdo->query("UPDATE statistics SET income='$incomeResult'");
-//            $resultStatistics = $pdo->query("UPDATE statistics SET income='$balance'");
             $balance += $result[0]['balance'];
             $queryPay = "UPDATE club_cards SET balance='$balance' WHERE hash_card='$id'";
             $result = $pdo->query($queryPay);
             echo 'Баланс на карте '.$id.' теперь '.$balance,' гривен. <br>';
-
         }
         else
             echo 'Нет такой карты.';
