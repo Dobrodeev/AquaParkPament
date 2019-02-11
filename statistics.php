@@ -32,4 +32,14 @@
 Расчетная прибыль аквапарка на одного посетителя (примечание: средняя
 значение не является целым числом).
  */
+echo '<br>';
+include 'DB.php';
+$stmt = $pdo->query("SELECT * FROM statistics");
+while ($row = $stmt->fetch())
+{
+    echo 'Прибыль за все время: '.$row['income'].'<br>';
+        echo ' Людей всего: '.$row['all_people'].'<br>';
+            echo ' all_time: '.$row['all_time'].'<br>';
+                echo ' Всего людей в аквапарке: '.$row['people_now'].'<br>';
+}
 ?>
