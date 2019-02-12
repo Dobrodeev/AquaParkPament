@@ -46,15 +46,17 @@ if ($_POST['go'])
         {
             $pay = 1.5*($time - $resultTime);
             echo 'Доплатите '.$pay.' гривен.';
-            $queryFromStatistics = "SELECT income, people_now FROM statistics";
+            $queryFromStatistics = "SELECT income, all_visits, all_time, people_now FROM statistics";
             $stat = $pdo->query($queryFromStatistics);
             $resStat = $stat->fetchAll();
             echo '<pre>';
             print_r($resStat);
             echo '</pre>';
             $income = $resStat[0]['income'] + $pay;
+            $all_visits = $resStat[0]['all_visits'] + 1;
+            $all_time = $resStat[0]['all_time'] + $resultTime;
             $people = $resStat[0]['people_now'] - 1;
-            $resIncome = $pdo->query("UPDATE statistics SET income='$income', people_now='$people'");
+            $resIncome = $pdo->query("UPDATE statistics SET income='$income', all_visits='$all_visits', all_time='$all_time', people_now='$people'");
         }
     }
     else
@@ -70,12 +72,17 @@ if ($_POST['go'])
             $resultBalance -= $pay;
             $queryClubCards = "UPDATE club_cards SET balance='$resultBalance', status_card='active' WHERE hash_card='$hash_card'";
             $resultClubCards = $pdo->query($queryClubCards);
-            $queryFromStatistics = "SELECT income, people_now FROM statistics";
+            $queryFromStatistics = "SELECT income, all_visits, all_time, people_now FROM statistics";
             $stat = $pdo->query($queryFromStatistics);
             $resStat = $stat->fetchAll();
+            echo '<pre>';
+            print_r($resStat);
+            echo '</pre>';
             $income = $resStat[0]['income'] + $pay;
+            $all_visits = $resStat[0]['all_visits'] + 1;
+            $all_time = $resStat[0]['all_time'] + $time;
             $people = $resStat[0]['people_now'] - 1;
-            $resIncome = $pdo->query("UPDATE statistics SET income='$income', people_now='$people'");
+            $resIncome = $pdo->query("UPDATE statistics SET income='$income', all_visits='$all_visits', all_time='$all_time', people_now='$people'");
         }
     }
 }

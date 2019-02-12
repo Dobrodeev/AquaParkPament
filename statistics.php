@@ -38,8 +38,8 @@ $stmt = $pdo->query("SELECT * FROM statistics");
 while ($row = $stmt->fetch())
 {
     echo 'Прибыль за все время: '.$row['income'].'<br>';
-        echo ' Людей всего: '.$row['all_people'].'<br>';
-            echo ' all_time: '.$row['all_time'].'<br>';
-                echo ' Всего людей в аквапарке: '.$row['people_now'].'<br>';
+        echo ' Людей за все время посетило аквапарк: '.$row['all_visits'].'<br>';
+            echo 'Средеее время посещения: '.$row['all_time']/$row['all_visits'].'<br>';
+                echo ' Всего людей в аквапарке сейчас: '.$row['people_now'].'<br>';
 }
 ?>
