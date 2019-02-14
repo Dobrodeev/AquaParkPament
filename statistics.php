@@ -42,4 +42,27 @@ while ($row = $stmt->fetch())
             echo 'Средеее время посещения: '.$row['all_time']/$row['all_visits'].'<br>';
                 echo ' Всего людей в аквапарке сейчас: '.$row['people_now'].'<br>';
 }
+$min = 3425;
+
+$y = 31.1;
+$adr = 8743526;
+$town = 'NewYork';
+
+echo $x . '</br>';
+echo $y . '</br>';
+
+printf("time: %d:%02d <br>fgdsfdg  %.2f  fdg<br>%08X<br>Town is %s<br>",
+    $min/60, $min%60, $y, $adr, $town);
+
+
+$a = 0.0001 + 0.0001 + 0.0001;
+if ($a == 0.0003)
+    printf("YES!<br>");
+else
+    printf("%.20f  <br>",$a);
+
+$str = sprintf("time: %d:%02d <br>fgdsfdg  %.2f  fdg<br>%08X<br>Town is %s<br>",
+    $min/60, $min%60, $y, $adr, $town);
+
+echo $str;
 ?>
