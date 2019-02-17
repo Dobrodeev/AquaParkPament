@@ -37,11 +37,19 @@ include 'DB.php';
 $stmt = $pdo->query("SELECT * FROM statistics");
 while ($row = $stmt->fetch())
 {
-    echo 'Прибыль за все время: '.$row['income'].'<br>';
-        echo ' Людей за все время посетило аквапарк: '.$row['all_visits'].'<br>';
-            echo 'Средеее время посещения: '.$row['all_time']/$row['all_visits'].'<br>';
+    echo 'Прибыль за все время: <br>';
+    printf('%.2f',$row['income']);
+    echo ' гривен <br>';
+        echo ' Людей за все время посетило аквапарк: '.$row['all_visits'];
+        echo ' человек(а)<br>';
+            echo 'Средеее время посещения: <br>';
+            printf('%d',($row['all_time']/$row['all_visits'])/60);
+            echo ' часа ';
+            printf('%d', ($row['all_time']/$row['all_visits'])%60);
+            echo ' минут(ы) <br>';
                 echo ' Всего людей в аквапарке сейчас: '.$row['people_now'].'<br>';
 }
+/*
 $min = 3425;
 
 $y = 31.1;
@@ -65,4 +73,5 @@ $str = sprintf("time: %d:%02d <br>fgdsfdg  %.2f  fdg<br>%08X<br>Town is %s<br>",
     $min/60, $min%60, $y, $adr, $town);
 
 echo $str;
+**/
 ?>
