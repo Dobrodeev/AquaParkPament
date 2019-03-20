@@ -45,7 +45,7 @@ while ($row = $stmt->fetch())
             echo 'Средеее время посещения: <br>';
             printf('%d',($row['all_time']/$row['all_visits'])/60);
             echo ' часа ';
-            printf('%d', ($row['all_time']/$row['all_visits'])%60);
+            printf('%02d', ($row['all_time']/$row['all_visits'])%60);// 3 часа 03 мин
             echo ' минут(ы) <br>';
                 echo ' Всего людей в аквапарке сейчас: '.$row['people_now'].'<br>';
 }
